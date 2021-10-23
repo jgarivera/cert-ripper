@@ -1,6 +1,6 @@
 # Cert Ripper
 
-A tool that can automatically separate a bundle of certificates to their recipients. Uses Pywin to automate Outlook email creation and sending.
+A Python tool that can separate certificate PDF files of recipients from a single PDF file. It also uses `pywin` to automate Outlook email drafting and sending.
 
 ## Usage
 
