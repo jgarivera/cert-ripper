@@ -11,13 +11,15 @@ class CertRipper:
 
     def __init__(
         self,
-        mode,
-        master_pdf_path,
-        recipients_path,
-        output_path,
-        output_file_name_template,
+        mode=CSV_LIST_MODE,
+        start_page_index=0,
+        master_pdf_path=None,
+        recipients_path=None,
+        output_path=None,
+        output_file_name_template=None,
     ):
         self.mode = mode
+        self.start_page_index = start_page_index
         self.master_pdf_path = master_pdf_path
         self.pdf = PdfFileReader(master_pdf_path)
         self.pdf_length = self.pdf.getNumPages()
@@ -35,7 +37,7 @@ class CertRipper:
         self.extract_pdf_from_master()
 
     def extract_pdf_from_master(self):
-        for page_index in range(self.pdf_length):
+        for page_index in range(self.start_page_index, self.pdf_length):
             page = self.pdf.getPage(page_index)
 
             recipient_name_stub = self.extract_recipient_name_stub(page_index)
@@ -65,7 +67,7 @@ class CertRipper:
                 f"Attempted to extract participant name from CSV while in {CertRipper.PDF_TEXT_MODE}"
             )
 
-        return self.participants[page_index]
+        return self.participants[self.start_page_index - page_index]
 
     def get_recipients_from_csv(self):
         recipients = []
@@ -80,14 +82,19 @@ class CertRipper:
 
             recipients_length = len(recipients)
 
-            if self.pdf_length != recipients_length:
-                raise ValueError(
-                    f"Number of recipients in CSV list ({recipients_length}) does not match with PDF length ({self.pdf_length})"
-                )
+            self.__check_pdf_length(recipients_length)
 
-            print(f"Processed {recipients_length} recipient(s) for certificate ripping")
+            print(
+                f"Processed {recipients_length} recipient(s) for certificate ripping")
 
         return recipients
+
+    def __check_pdf_length(self, recipients_length):
+        pdf_length = self.pdf_length - (self.start_page_index)
+        if pdf_length != recipients_length:
+            raise ValueError(
+                f"Number of recipients in CSV list ({recipients_length}) does not match with PDF length ({pdf_length})"
+            )
 
 
 if __name__ == "__main__":
@@ -95,6 +102,7 @@ if __name__ == "__main__":
 
     ripper = CertRipper(
         mode=CertRipper.CSV_LIST_MODE,
+        start_page_index=5,
         master_pdf_path=os.getenv("MASTER_PDF_PATH"),
         recipients_path=os.getenv("RECIPIENTS_PATH"),
         output_path=os.getenv("OUTPUT_PATH"),
