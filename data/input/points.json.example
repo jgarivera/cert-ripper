@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Special Award Certificate",
+    "tag": "SA",
+    "recipients": [
+      {
+        "name": "Juan Dela Cruz",
+        "email": "jdc@some.org"
+      }
+    ]
+  },
+  {
+    "name": "Certificate of Participation",
+    "tag": "CP",
+    "recipients": [
+      {
+        "name": "Pedro Gil",
+        "email": "pg@some.org"
+      },
+      {
+        "name": "Maria Clara",
+        "email": "mc@some.org"
+      }
+    ]
+  }
+]
