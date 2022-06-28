@@ -54,7 +54,7 @@ if __name__ == "__main__":
     load_dotenv()
 
     recipients_list = RecipientList(
-        start_page_index=os.getenv("START_PAGE_INDEX"),
+        start_page_index=int(os.getenv("START_PAGE_INDEX")),
         json_points_path=os.getenv("JSON_POINTS_PATH"),
         ripped_certs_path=os.getenv("RIPPED_CERTS_PATH"),
         ripped_cert_file_name=os.getenv("RIPPED_CERT_FILE_NAME"),
