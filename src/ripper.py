@@ -105,7 +105,7 @@ if __name__ == "__main__":
     load_dotenv()
 
     ripper = CertRipper(
-        start_page_index=os.getenv("START_PAGE_INDEX"),
+        start_page_index=int(os.getenv("START_PAGE_INDEX")),
         master_pdf_path=os.getenv("MASTER_PDF_PATH"),
         json_points_path=os.getenv("JSON_POINTS_PATH"),
         ripped_certs_path=os.getenv("RIPPED_CERTS_PATH"),
