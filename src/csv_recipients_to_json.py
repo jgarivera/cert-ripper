@@ -6,11 +6,11 @@ import os
 
 class CSVRecipientsToJSON:
 
-    def __init__(self, csv_recipients_path=None, json_recipients_path=None):
+    def __init__(self, csv_recipients_path: str = None, json_recipients_path: str = None):
         self.csv_recipients_path = csv_recipients_path
         self.json_recipients_path = json_recipients_path
 
-    def process(self):
+    def process(self) -> None:
         recipients = []
 
         with open(self.csv_recipients_path) as csv_file:
@@ -38,5 +38,7 @@ if __name__ == "__main__":
 
     converter = CSVRecipientsToJSON(
         csv_recipients_path=os.getenv("CSV_RECIPIENTS_PATH"),
-        json_recipients_path=os.getenv("JSON_RECIPIENTS_PATH"),)
+        json_recipients_path=os.getenv("JSON_RECIPIENTS_PATH")
+    )
+
     converter.process()
