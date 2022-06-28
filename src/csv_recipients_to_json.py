@@ -6,7 +6,7 @@ import os
 
 class CSVRecipientsToJSON:
 
-    def __init__(self, csv_recipients_path: str = None, json_recipients_path: str = None):
+    def __init__(self, csv_recipients_path: str = None, json_recipients_path: str = None) -> None:
         self.csv_recipients_path = csv_recipients_path
         self.json_recipients_path = json_recipients_path
 

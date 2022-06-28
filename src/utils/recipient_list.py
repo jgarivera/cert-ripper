@@ -5,20 +5,20 @@ import os
 class RecipientList:
     def __init__(
         self,
-        start_page_index=0,
-        json_points_path=None,
-        ripped_certs_path=None,
-        ripped_cert_file_name=None,
-        debug=False
-    ):
-        self.start_page_index = int(start_page_index)
-        self.recipients = []
+        start_page_index: int = 0,
+        json_points_path: str = None,
+        ripped_certs_path: str = None,
+        ripped_cert_file_name: str = None,
+        debug: bool = False
+    ) -> None:
+        self.start_page_index = start_page_index
         self.json_points_path = json_points_path
         self.ripped_certs_path = ripped_certs_path
         self.ripped_cert_file_name = ripped_cert_file_name
+        self.recipients = []
         self.debug = debug
 
-    def get_recipients(self):
+    def get_recipients(self) -> list:
         current_page_index = self.start_page_index
         total_recipients = 0
 
@@ -26,9 +26,9 @@ class RecipientList:
             points = json.load(json_file)
 
             for point in points:
-                point_name = point["name"]
-                point_tag = point["tag"]
-                point_recipients = point["recipients"]
+                point_name: str = point["name"]
+                point_tag: str = point["tag"]
+                point_recipients: list = point["recipients"]
 
                 for point_recipient in point_recipients:
                     self.add_recipient(
@@ -46,7 +46,7 @@ class RecipientList:
 
         return self.recipients
 
-    def add_recipient(self, page_index, point_name, point_tag, point_recipient):
+    def add_recipient(self, page_index: int, point_name: str, point_tag: str, point_recipient: dict[str, str]) -> None:
         certificate = point_name
         recipient_name = point_recipient["name"]
         recipient_email = point_recipient["email"]
@@ -69,10 +69,10 @@ class RecipientList:
                 f"Added MailRecipient=({recipient_first_name}, {certificate}, {recipient_name}, {recipient_email}, {attachment_path})"
             )
 
-    def get_first_name(self, full_name):
+    def get_first_name(self, full_name: str) -> str:
         return full_name.split()[0].strip()
 
-    def get_attachment(self, page_index, tag, recipient_name):
+    def get_attachment(self, page_index: int, tag: str, recipient_name: str) -> str:
         recipient_name_slug = "_".join(recipient_name.split())
 
         file_name = self.ripped_cert_file_name.format(

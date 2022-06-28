@@ -8,14 +8,13 @@ from utils.template_reader import TemplateReader
 class Mailer:
     def __init__(
         self,
-
-        cc_email,
-        subject,
-        recipient_email,
-        recipient_first_name,
-        certificate_name,
-        template_html,
-        attachment_path,
+        cc_email: str,
+        subject: str,
+        recipient_email: str,
+        recipient_first_name: str,
+        certificate_name: str,
+        template_html: str,
+        attachment_path: str,
     ):
 
         self.cc_email = cc_email
@@ -26,7 +25,7 @@ class Mailer:
         self.template_html = template_html
         self.attachment_path = attachment_path
 
-    def create_mail(self, display=False, send=False):
+    def create_mail(self, display=False, send=False) -> None:
         outlook = client.Dispatch("Outlook.Application")
         mail = outlook.CreateItem(0)
         certificate = self.certificate_name

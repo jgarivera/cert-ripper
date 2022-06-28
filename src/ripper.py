@@ -12,7 +12,7 @@ class CertRipper:
         json_points_path: str = None,
         ripped_certs_path: str = None,
         ripped_cert_file_name: str = None,
-    ):
+    ) -> None:
         self.start_page_index = start_page_index
         self.master_pdf_path = master_pdf_path
         self.pdf = PdfFileReader(master_pdf_path)
