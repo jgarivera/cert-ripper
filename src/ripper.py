@@ -7,11 +7,11 @@ import json
 class CertRipper:
     def __init__(
         self,
-        start_page_index=0,
-        master_pdf_path=None,
-        json_points_path=None,
-        ripped_certs_path=None,
-        ripped_cert_file_name=None,
+        start_page_index: int = 0,
+        master_pdf_path: str = None,
+        json_points_path: str = None,
+        ripped_certs_path: str = None,
+        ripped_cert_file_name: str = None,
     ):
         self.start_page_index = start_page_index
         self.master_pdf_path = master_pdf_path
@@ -21,11 +21,11 @@ class CertRipper:
         self.ripped_certs_path = ripped_certs_path
         self.ripped_cert_file_name = ripped_cert_file_name
 
-    def process(self):
+    def process(self) -> None:
         recipient_groups = self.get_recipient_groups_from_points()
         self.extract_pdf_from_master(recipient_groups)
 
-    def extract_pdf_from_master(self, recipient_groups):
+    def extract_pdf_from_master(self, recipient_groups: list) -> None:
         current_page_index = self.start_page_index
         process_index = 0
 
@@ -59,7 +59,7 @@ class CertRipper:
                 current_page_index += 1
                 process_index += 1
 
-    def get_recipient_groups_from_points(self):
+    def get_recipient_groups_from_points(self) -> list:
         recipient_groups = []
         total_recipients = 0
 
@@ -93,8 +93,8 @@ class CertRipper:
 
         return recipient_groups
 
-    def __check_pdf_length(self, recipients_length):
-        pdf_length = self.pdf_length - (self.start_page_index)
+    def __check_pdf_length(self, recipients_length: int) -> None:
+        pdf_length = self.pdf_length - self.start_page_index
         if pdf_length != recipients_length:
             raise ValueError(
                 f"Number of recipients ({recipients_length}) does not match with PDF length ({pdf_length})"
